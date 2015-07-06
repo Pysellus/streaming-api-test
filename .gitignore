@@ -1,5 +1,6 @@
 ### Project Specifics ###
 auth_tokens.py
+*.log.json
 
 ### OSX ###
 .DS_Store
