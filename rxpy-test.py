@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
 
-from auth_tokens import *
 from rx import Observable
-
+import APIReaderTwitter as Twitter
 
 try:
     import json
 except ImportError:
     import simplejson as json
 
-from twitter import Twitter, OAuth, TwitterHTTPError, TwitterStream
+# Iterable -> Observable
+def Stream(iterable):
+	return Observable.from_(iterable)
 
-oauth = OAuth(ACCESS_TOKEN, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
+# Any -> Boolean
+def is_not_delete(element):
+	return not "delete" in element
 
-twitter_stream = TwitterStream(auth=oauth)
+# Any -> IO
+def pretty_print(element):
+	print(json.dumps(element, indent=4))
 
-iterator = twitter_stream.statuses.sample()
-
-observable = Observable.from_iterable(iterator)
-
-observable.subscribe(print)
-
-
-tweet_count = 1
+stream = Stream(Twitter.get_iterable())
+stream.filter(is_not_delete).subscribe(pretty_print)
