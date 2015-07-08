@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+'''
+    Filter all "delete" events from the Twitter API
+'''
+
 from rx import Observable
 import APIReaderTwitter as Twitter
 
