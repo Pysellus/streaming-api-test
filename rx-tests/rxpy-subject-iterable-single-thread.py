@@ -31,8 +31,9 @@ sub_subject2 = subject.subscribe(
 # while True:
 #     print("Foo")
 
+# This is blocking
 source.subscribe(subject)
 
-# This does too
+# This works as expected
 while True:
     print("Foo")
