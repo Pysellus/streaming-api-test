@@ -17,14 +17,14 @@ def Stream(iterable):
     return Observable.from_(iterable)
 
 # Any -> Boolean
-def is_not_delete(element):
+def is_delete(element):
     return not "delete" in element
 
 def pretty_print(element):
     print(json.dumps(element, indent=4))
 
 stream = Stream(Twitter.get_iterable())
-stream.filter(is_not_delete).subscribe(pretty_print)
+stream.filter(is_delete).subscribe(pretty_print)
 
 # This line never gets executed
 while True:

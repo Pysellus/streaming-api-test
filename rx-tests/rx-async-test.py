@@ -19,10 +19,10 @@ except ImportError:
 
 
 def is_not_delete(element):
-    return not "delete" in element
+    return "delete" in element
 
 def is_delete(element):
-    return "delete" in element
+    return not "delete" in element
 
 def pretty_print(element):
     print(json.dumps(element, indent=4))
