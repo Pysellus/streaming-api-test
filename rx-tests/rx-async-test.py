@@ -38,8 +38,8 @@ def process_tweets():
 if __name__ == "__main__":
     executor = ProcessPoolExecutor(2)
     loop = asyncio.get_event_loop()
-    
+
     deleted = asyncio.async(loop.run_in_executor(executor, process_deleted))
     tweets  = asyncio.async(loop.run_in_executor(executor, process_tweets))
-    
+
     loop.run_forever()
