@@ -13,7 +13,7 @@ from time import sleep
 
 # Cold Observables only publish events when a subscriptor exists
 
-print("=================================\nCold Observble:")
+print("=================================\nCold Observable:")
 
 source = rx.Observable.interval(1000)
 
@@ -47,7 +47,7 @@ sub2.dispose()
 # Hot Observables, on the other hand, continue to publish
 # events even when no one is listening
 
-print("=================================\nHot Observble:")
+print("=================================\nHot Observable:")
 
 date = datetime.datetime
 print("Current time (s): {0}".format(date.now().second))
