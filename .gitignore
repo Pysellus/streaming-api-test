@@ -1,5 +1,6 @@
 ### Project Specifics ###
 auth_tokens.py
+tg_auth.py
 *.log.json
 /.idea/
 
