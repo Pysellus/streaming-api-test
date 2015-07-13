@@ -1,1 +1,5 @@
+bottle==0.12.8
+requests==2.7.0
+Rx==1.2.1
 twitter==1.17.0
+
