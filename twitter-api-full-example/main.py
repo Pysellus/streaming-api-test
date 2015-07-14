@@ -1,7 +1,6 @@
 import re
 import json
 import asyncio
-from functools import partial
 from concurrent.futures import ThreadPoolExecutor
 
 from rx import Observable
@@ -83,8 +82,8 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
 
     # In our DSL, this would be `expect(stream)(test)`
-    asyncio.async(loop.run_in_executor(executor, partial(process_stream, retweeted_tweets, retweet_test)))
-    asyncio.async(loop.run_in_executor(executor, partial(process_stream, in_japanese_tweets, emoji_test)))
-    asyncio.async(loop.run_in_executor(executor, partial(process_stream, spanish_hashtags, hashtag_test)))
+    asyncio.async(loop.run_in_executor(executor, process_stream, retweeted_tweets, retweet_test))
+    asyncio.async(loop.run_in_executor(executor, process_stream, in_japanese_tweets, emoji_test))
+    asyncio.async(loop.run_in_executor(executor, process_stream, spanish_hashtags, hashtag_test))
 
     loop.run_forever()
