@@ -29,11 +29,10 @@ class Telegram():
         If no element is found, fill the buffer,
         and then return the first from it
         """
-        if self.buffer:
-            return self.buffer.pop(0)
-        else:
+        if not self.buffer:
             self._fill_update_buffer()
-            return self.buffer.pop(0)
+
+        return self.buffer.pop(0)
 
     def _fill_update_buffer(self, backoff=0.1, limit=16):
         """
