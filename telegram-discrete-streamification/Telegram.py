@@ -38,30 +38,34 @@ class Telegram():
         """
         Fill the buffer with the next N elements.
 
-        If no connection can be made, keep trying
-        If the buffer is still empty, keep trying
+        If no connection can be made, keep trying until
+        limit is reached.
+        If the buffer is still empty, keep trying indefinitely
         """
         try:
             payload = {'offset': self.offset}
-            res = requests.get(self.update_url, params=payload)
+            response = requests.get(self.update_url, params=payload)
         except requests.exceptions.RequestException as e:
             if backoff >= limit:
                 raise e
             else:
-                sleep(backoff)
-                self._fill_update_buffer(backoff=backoff*2)
+                self._wait_and_retry(backoff)
 
-        res = res.json()['result']
+        updates = response.json()['result']
 
-        # If no elements in the queue
-        # Call again until an element is given
-        if not res:
+        # If no elements in the queue,
+        # call again until an element is received
+        if not updates:
             if backoff >= limit:
                 backoff = 0.1
-            sleep(backoff)
-            self._fill_update_buffer(backoff=backoff*2)
-        else:
-            self.offset = res[-1]['update_id'] + 1
 
-        for up in res:
-            self.buffer.append(up)
+            self._wait_and_retry(backoff)
+        else:
+            self.offset = updates[-1]['update_id'] + 1
+
+        for update in updates:
+            self.buffer.append(update)
+
+    def _wait_and_retry(self, seconds_to_wait):
+        sleep(seconds_to_wait)
+        self._fill_update_buffer(backoff=seconds_to_wait*2)
