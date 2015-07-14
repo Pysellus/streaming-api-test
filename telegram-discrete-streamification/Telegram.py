@@ -45,7 +45,7 @@ class Telegram():
             payload = {'offset': self.offset}
             res = requests.get(self.update_url, params=payload)
         except requests.exceptions.RequestException as e:
-            if backoff >= payload:
+            if backoff >= limit:
                 raise e
             else:
                 sleep(backoff)
