@@ -10,7 +10,7 @@ class Smartvel():
         self._token = token
         self._buffer = []
         self._endpoint = endpoint
-        self._update_url = 'http://vincent.smartvel.net/v1/' + self._endpoint + '/'
+        self._update_url = 'http://vincent.smartvel.net/v1/' + self._endpoint
 
 
     def __iter__(self):
