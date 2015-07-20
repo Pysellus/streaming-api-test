@@ -15,8 +15,8 @@ REGIONS = (
 )
 
 # Filters
-def has_place(elemet):
-    return 'place' in elemet['event']
+def has_place(element):
+    return 'place' in element['event']
 
 is_in_region = { region: lambda element: element['event']['place']['region']['name'] == region for region in REGIONS }
 
