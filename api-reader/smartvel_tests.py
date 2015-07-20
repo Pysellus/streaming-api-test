@@ -18,7 +18,11 @@ REGIONS = (
 def has_place(element):
     return 'place' in element['event']
 
-is_in_region = { region: lambda element: element['event']['place']['region']['name'] == region for region in REGIONS }
+is_in_region = {
+    region:
+        lambda element: element['event']['place']['region']['name'] == region
+    for region in REGIONS
+}
 
 
 # Test
@@ -35,9 +39,12 @@ def fail_if_empty(empty):
 
 
 # Launch the test
-threads = [ Thread(target=is_not_empty, \
-                   args=(events.filter(has_place).filter(is_in_region[region]), )) \
-            for region in REGIONS ]
+threads = [
+    Thread(
+        target=is_not_empty, \
+        args=[events.filter(has_place).filter(is_in_region[region])]
+    ) for region in REGIONS
+]
 
 for thread in threads:
     thread.start()
